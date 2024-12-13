@@ -41,10 +41,7 @@ export function LoginForm() {
             <Input id="password" type="password" required />
           </div>
           <Button type="submit" className="w-full">
-            Login
-          </Button>
-          <Button variant="outline" className="w-full">
-            Google ile giriş yap
+            Giriş
           </Button>
         </div>
         {/* <div className="mt-4 text-center text-sm">
