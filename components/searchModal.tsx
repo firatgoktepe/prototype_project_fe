@@ -1,0 +1,78 @@
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Chat } from "./chatLayout";
+
+type SearchModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  chats: Chat[];
+  setCurrentChatId: (id: string) => void;
+};
+
+export const SearchModal = ({
+  isOpen,
+  onClose,
+  chats,
+  setCurrentChatId,
+}: SearchModalProps) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<Chat[]>([]);
+
+  useEffect(() => {
+    if (searchQuery) {
+      const filteredChats = chats.filter((chat) =>
+        chat.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setSearchResults(filteredChats);
+    } else {
+      setSearchResults([]);
+    }
+  }, [searchQuery, chats]);
+
+  const handleSelectChat = (chatId: string) => {
+    setCurrentChatId(chatId);
+    onClose();
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Search Chats</DialogTitle>
+        </DialogHeader>
+        <div className="py-4">
+          <Input
+            placeholder="Search chats..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="mb-4"
+          />
+          <ScrollArea className="h-[300px]">
+            {searchResults.length > 0
+              ? searchResults.map((chat) => (
+                  <Button
+                    key={chat.id}
+                    variant="ghost"
+                    className="w-full justify-start mb-2"
+                    onClick={() => handleSelectChat(chat.id)}
+                  >
+                    {chat.title}
+                  </Button>
+                ))
+              : searchQuery && (
+                  <p className="text-center text-gray-500">No chats found</p>
+                )}
+          </ScrollArea>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};

@@ -119,6 +119,7 @@ export const ChatLayout = () => {
         <ChatArea
           currentChat={chats.find((chat) => chat.id === currentChatId)}
           addMessageToChat={addMessageToChat}
+          createNewChat={createNewChat}
         />
       </div>
     </div>

@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Plus, X, MoreVertical, Share, Edit, Trash } from "lucide-react";
+import {
+  Plus,
+  X,
+  MoreVertical,
+  Share,
+  Edit,
+  Trash,
+  Search,
+} from "lucide-react";
 import { Chat } from "./chatLayout";
 import {
   DropdownMenu,
@@ -10,6 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { SearchModal } from "./searchModal";
 
 type SidebarProps = {
   open: boolean;
@@ -69,6 +78,7 @@ export const Sidebar = ({
 }: SidebarProps) => {
   const [renamingChatId, setRenamingChatId] = useState<string | null>(null);
   const [newTitle, setNewTitle] = useState("");
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
   const handleRename = (chatId: string) => {
     if (newTitle.trim()) {
@@ -76,6 +86,10 @@ export const Sidebar = ({
       setRenamingChatId(null);
       setNewTitle("");
     }
+  };
+
+  const handleSearch = () => {
+    setIsSearchModalOpen(true);
   };
 
   const classifiedChats = classifyChats(chats);
@@ -89,14 +103,24 @@ export const Sidebar = ({
       <div className="flex h-full flex-col">
         <div className="flex items-center justify-between px-4 py-3">
           <h2 className="text-xl font-semibold">Chats</h2>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setOpen(false)}
-            className="md:hidden"
-          >
-            <X className="h-6 w-6" />
-          </Button>
+          <div className="flex items-center">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleSearch}
+              className="mr-2"
+            >
+              <Search className="h-5 w-5" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setOpen(false)}
+              className="md:hidden"
+            >
+              <X className="h-6 w-6" />
+            </Button>
+          </div>
         </div>
         <Button
           className="mx-4 mb-2"
@@ -181,6 +205,12 @@ export const Sidebar = ({
           </div>
         </ScrollArea>
       </div>
+      <SearchModal
+        isOpen={isSearchModalOpen}
+        onClose={() => setIsSearchModalOpen(false)}
+        chats={chats}
+        setCurrentChatId={setCurrentChatId}
+      />
     </div>
   );
 };
