@@ -52,7 +52,7 @@ export const SearchModal = ({
             variant="ghost"
             size="icon"
             onClick={onClose}
-            className="absolute right-4 top-4"
+            className="absolute right-4 top-2"
           >
             <X className="h-4 w-4" />
           </Button>
