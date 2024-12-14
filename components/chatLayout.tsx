@@ -33,6 +33,8 @@ export const ChatLayout = () => {
   useEffect(() => {
     if (chats.length > 0) {
       localStorage.setItem("chats", JSON.stringify(chats));
+    } else {
+      localStorage.removeItem("chats");
     }
   }, [chats]);
 
@@ -45,6 +47,7 @@ export const ChatLayout = () => {
     };
     setChats((prevChats) => [...prevChats, newChat]);
     setCurrentChatId(newChat.id);
+    return newChat.id;
   };
 
   const addMessageToChat = (
@@ -82,6 +85,12 @@ export const ChatLayout = () => {
       if (currentChatId === chatId) {
         setCurrentChatId(updatedChats.length > 0 ? updatedChats[0].id : null);
       }
+      // Update local storage
+      if (updatedChats.length === 0) {
+        localStorage.removeItem("chats");
+      } else {
+        localStorage.setItem("chats", JSON.stringify(updatedChats));
+      }
       return updatedChats;
     });
   };
@@ -106,7 +115,7 @@ export const ChatLayout = () => {
               variant="ghost"
               size="icon"
               className="md:hidden"
-              onClick={() => setSidebarOpen(true)}
+              onClick={() => setSidebarOpen(!sidebarOpen)}
             >
               <Menu className="h-6 w-6" />
             </Button>
@@ -118,6 +127,7 @@ export const ChatLayout = () => {
         </header>
         <ChatArea
           currentChat={chats.find((chat) => chat.id === currentChatId)}
+          chats={chats}
           addMessageToChat={addMessageToChat}
           createNewChat={createNewChat}
         />
