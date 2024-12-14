@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -84,9 +84,9 @@ export const Sidebar = ({
   const handleRename = (chatId: string) => {
     if (newTitle.trim()) {
       renameChat(chatId, newTitle.trim());
-      setRenamingChatId(null);
-      setNewTitle("");
     }
+    setRenamingChatId(null);
+    setNewTitle("");
   };
 
   const handleSearch = () => {
@@ -94,10 +94,12 @@ export const Sidebar = ({
   };
 
   const handleChatClick = (chatId: string) => {
-    setCurrentChatId(chatId);
-    if (window.innerWidth < 768) {
-      // Close sidebar on mobile
-      setOpen(false);
+    if (renamingChatId !== chatId) {
+      setCurrentChatId(chatId);
+      if (window.innerWidth < 768) {
+        // Close sidebar on mobile
+        setOpen(false);
+      }
     }
   };
 
@@ -179,8 +181,10 @@ export const Sidebar = ({
                               <Input
                                 value={newTitle}
                                 onChange={(e) => setNewTitle(e.target.value)}
+                                onBlur={() => handleRename(chat.id)}
                                 placeholder="New chat name"
                                 className="bg-gray-800 text-white"
+                                autoFocus
                               />
                             </form>
                           ) : (
@@ -208,7 +212,9 @@ export const Sidebar = ({
                                 <span>Share</span>
                               </DropdownMenuItem>
                               <DropdownMenuItem
-                                onClick={() => {
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
                                   setRenamingChatId(chat.id);
                                   setNewTitle(chat.title);
                                 }}

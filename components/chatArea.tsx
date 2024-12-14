@@ -76,8 +76,8 @@ export const ChatArea = ({
     <div className="flex-1 flex flex-col bg-white">
       <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
         {chats.length === 0 ? (
-          <div className="flex items-center justify-center h-full">
-            <p className="text-gray-500 text-center">
+          <div className="flex items-center justify-center h-80">
+            <p className="text-gray-500 text-center text-2xl">
               Select a chat or create a new one to start messaging.
             </p>
           </div>
