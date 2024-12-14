@@ -65,7 +65,7 @@ export const ChatArea = ({
       setTimeout(() => {
         addMessageToChat(chatId!, {
           role: "assistant",
-          content: "This is a mock response.",
+          content: "Test response",
         });
       }, 1000);
 
@@ -99,7 +99,8 @@ export const ChatArea = ({
         {chats.length === 0 ? (
           <div className="flex items-center justify-center h-80">
             <p className="text-gray-500 text-center text-2xl">
-              Select a chat or create a new one to start messaging.
+              Mesajlaşmaya başlamak için bir sohbet seçin veya yeni bir sohbet
+              oluşturun.
             </p>
           </div>
         ) : (
@@ -134,7 +135,7 @@ export const ChatArea = ({
                     src="/placeholder.svg?height=40&width=40"
                     alt="User"
                   />
-                  <AvatarFallback>U</AvatarFallback>
+                  <AvatarFallback>AA</AvatarFallback>
                 </Avatar>
               )}
             </div>
@@ -147,7 +148,7 @@ export const ChatArea = ({
             <Textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your message here..."
+              placeholder="Mesajınızı buraya yazın..."
               className="pr-10 min-h-[100px] text-lg placeholder:text-lg"
             />
             <Button

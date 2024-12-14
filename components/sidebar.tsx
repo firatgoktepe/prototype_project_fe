@@ -132,7 +132,7 @@ export const Sidebar = ({
       >
         <div className="flex h-full flex-col">
           <div className="flex items-center justify-between px-4 py-3">
-            <h2 className="text-xl font-semibold">Chats</h2>
+            <h2 className="text-xl font-semibold">Sohbetler</h2>
             <div className="flex items-center">
               <Button
                 variant="ghost"
@@ -157,7 +157,7 @@ export const Sidebar = ({
             variant="secondary"
             onClick={createNewChat}
           >
-            <Plus className="mr-2 h-4 w-4" /> New chat
+            <Plus className="mr-2 h-4 w-4" /> Yeni sohbet
           </Button>
           <ScrollArea className="flex-1 px-4">
             <div className="space-y-4 py-4">
@@ -209,7 +209,7 @@ export const Sidebar = ({
                                 onClick={() => shareChat(chat.id)}
                               >
                                 <Share className="mr-2 h-4 w-4" />
-                                <span>Share</span>
+                                <span>Paylaş</span>
                               </DropdownMenuItem>
                               <DropdownMenuItem
                                 onClick={(e) => {
@@ -220,13 +220,13 @@ export const Sidebar = ({
                                 }}
                               >
                                 <Edit className="mr-2 h-4 w-4" />
-                                <span>Rename</span>
+                                <span>Yeniden adlandır</span>
                               </DropdownMenuItem>
                               <DropdownMenuItem
                                 onClick={() => deleteChat(chat.id)}
                               >
                                 <Trash className="mr-2 h-4 w-4" />
-                                <span>Delete</span>
+                                <span>Sil</span>
                               </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>

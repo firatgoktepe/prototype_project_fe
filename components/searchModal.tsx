@@ -47,7 +47,7 @@ export const SearchModal = ({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Search Chats</DialogTitle>
+          <DialogTitle>Sohbet Ara</DialogTitle>
           <Button
             variant="ghost"
             size="icon"
@@ -59,7 +59,7 @@ export const SearchModal = ({
         </DialogHeader>
         <div className="py-4">
           <Input
-            placeholder="Search chats..."
+            placeholder="Sohbet Ara..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="mb-4"
@@ -77,7 +77,9 @@ export const SearchModal = ({
                   </Button>
                 ))
               : searchQuery && (
-                  <p className="text-center text-gray-500">No chats found</p>
+                  <p className="text-center text-gray-500">
+                    Sohbet Bulunamadı.
+                  </p>
                 )}
           </ScrollArea>
         </div>
