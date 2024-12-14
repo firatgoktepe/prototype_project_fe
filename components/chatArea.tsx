@@ -16,6 +16,7 @@ type ChatAreaProps = {
     message: { role: "user" | "assistant"; content: string }
   ) => void;
   createNewChat: () => string;
+  setOpen: (open: boolean) => void;
 };
 
 export const ChatArea = ({
@@ -112,7 +113,7 @@ export const ChatArea = ({
                     src="/placeholder.svg?height=40&width=40"
                     alt="User"
                   />
-                  <AvatarFallback>AA</AvatarFallback>
+                  <AvatarFallback>U</AvatarFallback>
                 </Avatar>
               )}
             </div>

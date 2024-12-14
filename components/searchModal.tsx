@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -47,6 +48,14 @@ export const SearchModal = ({
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Search Chats</DialogTitle>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onClose}
+            className="absolute right-4 top-4"
+          >
+            <X className="h-4 w-4" />
+          </Button>
         </DialogHeader>
         <div className="py-4">
           <Input

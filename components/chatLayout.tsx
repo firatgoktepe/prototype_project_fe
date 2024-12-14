@@ -19,6 +19,13 @@ export const ChatLayout = () => {
   const [chats, setChats] = useState<Chat[]>([]);
   const [currentChatId, setCurrentChatId] = useState<string | null>(null);
 
+  const setCurrentChatIdAndCloseSidebar = (id: string) => {
+    setCurrentChatId(id);
+    if (window.innerWidth < 768) {
+      setSidebarOpen(false);
+    }
+  };
+
   useEffect(() => {
     const savedChats = localStorage.getItem("chats");
     if (savedChats) {
@@ -102,7 +109,7 @@ export const ChatLayout = () => {
         setOpen={setSidebarOpen}
         chats={chats}
         currentChatId={currentChatId}
-        setCurrentChatId={setCurrentChatId}
+        setCurrentChatId={setCurrentChatIdAndCloseSidebar}
         createNewChat={createNewChat}
         shareChat={shareChat}
         renameChat={renameChat}
@@ -130,6 +137,7 @@ export const ChatLayout = () => {
           chats={chats}
           addMessageToChat={addMessageToChat}
           createNewChat={createNewChat}
+          setOpen={setSidebarOpen}
         />
       </div>
     </div>
