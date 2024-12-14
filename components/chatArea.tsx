@@ -61,8 +61,7 @@ export const ChatArea = ({
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      // Here you would typically upload the file and get a URL
-      // For this example, we'll just add the file name to the chat
+      // Here, typically upload the file and get a URL
       const message = `Attached file: ${file.name}`;
       let chatId = currentChat?.id;
       if (!chatId) {

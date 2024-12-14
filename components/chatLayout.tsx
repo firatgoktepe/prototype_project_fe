@@ -11,7 +11,7 @@ export type Chat = {
   id: string;
   title: string;
   messages: { role: "user" | "assistant"; content: string }[];
-  createdAt: number; // Timestamp of when the chat was created
+  createdAt: number; // Time the chat was created
 };
 
 export const ChatLayout = () => {

@@ -31,7 +31,7 @@ export const UserAvatar = () => {
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">Kullanıcı</p>
             <p className="text-xs leading-none text-muted-foreground">
-              user@example.com
+              ardaarli@gmail.com
             </p>
           </div>
         </DropdownMenuLabel>
