@@ -7,6 +7,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Send, Paperclip } from "lucide-react";
 import { Chat } from "./chatLayout";
+// import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+// import axios from 'axios';
 
 type ChatAreaProps = {
   currentChat: Chat | undefined;
@@ -18,6 +20,13 @@ type ChatAreaProps = {
   createNewChat: () => string;
   setOpen: (open: boolean) => void;
 };
+
+// API call function
+
+// const fetchAIResponse = async (message: string) => {
+//   const response = await axios.post('https://your-api-endpoint.com/chat', { message });
+//   return response.data;
+// };
 
 export const ChatArea = ({
   currentChat,
@@ -35,6 +44,14 @@ export const ChatArea = ({
     }
   }, [currentChat?.messages]);
 
+  // const aiResponseMutation = useMutation(fetchAIResponse, {
+  //     onSuccess: (data, variables, context) => {
+  //       if (context && typeof context === 'object' && 'chatId' in context) {
+  //         addMessageToChat(context.chatId as string, { role: 'assistant', content: data.response });
+  //       }
+  //     },
+  //   });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (input.trim()) {
@@ -51,6 +68,11 @@ export const ChatArea = ({
           content: "This is a mock response.",
         });
       }, 1000);
+
+      // Trigger AI response
+      // aiResponseMutation.mutate(input, {
+      //   context: { chatId },
+      // });
     }
   };
 
