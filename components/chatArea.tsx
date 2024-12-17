@@ -94,7 +94,7 @@ export const ChatArea = ({
   };
 
   return (
-    <div className="flex-1 flex flex-col bg-white">
+    <div className="flex-1 flex flex-col bg-white dark:bg-gray-800">
       <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
         {chats.length === 0 ? (
           <div className="flex items-center justify-center h-80">
@@ -124,7 +124,7 @@ export const ChatArea = ({
                 className={`rounded-lg p-2 max-w-[70%] ${
                   message.role === "user"
                     ? "bg-blue-500 text-white"
-                    : "bg-gray-200"
+                    : "bg-gray-200 dark:bg-gray-700"
                 }`}
               >
                 {message.content}
