@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { SearchModal } from "./searchModal";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type SidebarProps = {
   open: boolean;
@@ -81,6 +82,8 @@ export const Sidebar = ({
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
+  const isMobile = useIsMobile();
+
   const handleRename = (chatId: string) => {
     if (newTitle.trim()) {
       renameChat(chatId, newTitle.trim());
@@ -96,8 +99,7 @@ export const Sidebar = ({
   const handleChatClick = (chatId: string) => {
     if (renamingChatId !== chatId) {
       setCurrentChatId(chatId);
-      if (window.innerWidth < 768) {
-        // Close sidebar on mobile
+      if (isMobile && renamingChatId === null) {
         setOpen(false);
       }
     }
@@ -105,10 +107,18 @@ export const Sidebar = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      if (renamingChatId !== null) {
+        return; // Yeniden adlandırma aktifse sidebar kapanmasın
+      }
+
+      const target = event.target as HTMLElement;
+
+      // Eğer tıklama sidebar dışında bir yere ya da dropdown menüye değilse
       if (
         sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node) &&
-        window.innerWidth < 768
+        !sidebarRef.current.contains(target) &&
+        !target.closest("[data-dropdown-menu]") &&
+        isMobile
       ) {
         setOpen(false);
       }
@@ -118,7 +128,7 @@ export const Sidebar = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [setOpen]);
+  }, [setOpen, renamingChatId, isMobile]);
 
   const classifiedChats = classifyChats(chats);
 
@@ -204,7 +214,7 @@ export const Sidebar = ({
                                 <MoreVertical className="h-4 w-4" />
                               </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
+                            <DropdownMenuContent align="end" data-dropdown-menu>
                               <DropdownMenuItem
                                 onClick={() => shareChat(chat.id)}
                               >

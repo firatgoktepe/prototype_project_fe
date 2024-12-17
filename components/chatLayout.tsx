@@ -8,6 +8,8 @@ import { Menu } from "lucide-react";
 import { UserAvatar } from "./userAvatar";
 import { ThemeToggle } from "./themeToggle";
 
+import { useIsMobile } from "@/hooks/use-mobile";
+
 export type Chat = {
   id: string;
   title: string;
@@ -20,9 +22,11 @@ export const ChatLayout = () => {
   const [chats, setChats] = useState<Chat[]>([]);
   const [currentChatId, setCurrentChatId] = useState<string | null>(null);
 
+  const isMobile = useIsMobile();
+
   const setCurrentChatIdAndCloseSidebar = (id: string) => {
     setCurrentChatId(id);
-    if (window.innerWidth < 768) {
+    if (isMobile) {
       setSidebarOpen(false);
     }
   };
